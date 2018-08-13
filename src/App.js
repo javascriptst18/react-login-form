@@ -14,9 +14,12 @@ class App extends Component {
     password: ''
   }
 
-  // This will happen last
-  onSubmit = () => {
-
+  // We need to submit the form
+  onSubmit = (event) => {
+    event.preventDefault();
+    if(this.state.email && this.state.password){
+      this.setState({ loggedIn: true });
+    }
   }
 
   // Every input needs an event handler
@@ -31,9 +34,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <form>
+        <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label htmlFor="exampleInputEmail1">Email address</label>
+            { /* Controlled Component */}
             <input onChange={this.handleEmail} value={this.state.email}
               type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
               <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
