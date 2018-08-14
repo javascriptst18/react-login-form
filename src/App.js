@@ -22,18 +22,32 @@ class App extends Component {
      * If email and password is not empty, change the logged in state to true
      */
     if(this.state.email && this.state.password){
-      this.setState({ loggedIn: true });
+      this.setState({ 
+        loggedIn: true,
+        email: '',
+        password: ''
+      });
     }
   }
 
   // This replaces both handleEmail and handlePassword
   handleChange = (event) => {
-    this.setState({ [event.target.name] : event.target.value });
+    this.setState({ [event.target.name]: event.target.value }, () => {
+      console.log(this.state.email);
+    });
   }
   
   render() {
+    let email = null;
+    if(this.state.email){
+      email = <h2> {this.state.email} </h2>
+    }
     return (
       <div className="App">
+        { email }
+        {
+          this.state.loggedIn && <div><h2> Logged in </h2></div>
+        }
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label htmlFor="exampleInputEmail1">Email address</label>
